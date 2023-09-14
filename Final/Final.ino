@@ -9,6 +9,7 @@
 #define DirectionPin 4
 #define BaudRate 115200
 
+// Move robot for `d` cm in `mode` direction
 void move(float distance_cm, int mode) {
 
     float distance_per_sec = 7;
@@ -42,6 +43,14 @@ void move(float distance_cm, int mode) {
 }
 
 
+// Stop moving for `n` milliseconds
+void pause(int time_ms) {
+    Motor.turnWheel(LEFT_WHEEL, RIGHT, 0);
+    Motor.turnWheel(RIGHT_WHEEL, LEFT, 0);
+    delay(time_ms);
+}
+
+
 void setup() {
 
     // Initialization
@@ -60,9 +69,7 @@ void setup() {
 
     delay(1857);
 
-    Motor.turnWheel(LEFT_WHEEL, RIGHT, 0);
-    Motor.turnWheel(RIGHT_WHEEL, LEFT, 0);
-    delay(100);
+    pause(100);
     
     move(61.25, REVERSE);
 
@@ -78,17 +85,11 @@ void setup() {
     move(12.5, FORWARD);
 
     // Stop for a while
-    Motor.turnWheel(LEFT_WHEEL, LEFT, 0);
-    Motor.turnWheel(RIGHT_WHEEL, RIGHT, 0);
-
-    delay(500);
+    pause(500);
 
     move(25, FORWARD);
 
-    Motor.turnWheel(LEFT_WHEEL, LEFT, 0);
-    Motor.turnWheel(RIGHT_WHEEL, RIGHT, 0);
-
-    delay(500);
+    pause(500);
 
     // Turn to beeper
     Motor.turnWheel(LEFT_WHEEL, LEFT, 20);
